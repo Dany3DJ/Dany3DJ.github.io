@@ -183,6 +183,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    width: 100%;
 }
 
 .accent {
@@ -235,6 +236,12 @@ body {
     backdrop-filter: blur(10px);
     background: rgba(5, 5, 5, 0.5);
     border-bottom: 1px solid var(--border-color);
+    transition: padding 0.8s cubic-bezier(0.16, 1, 0.3, 1), background 0.8s ease;
+}
+
+.navbar.scrolled {
+    padding: 1rem 10%;
+    background: rgba(5, 5, 5, 0.8);
 }
 
 .logo {
@@ -300,6 +307,12 @@ body {
 
 .nav-underline.active {
     opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .nav-underline {
+        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 }
 
 /* Hero Section */
@@ -446,11 +459,12 @@ section {
     align-items: center;
 }
 
-.about-content h2 {
+.about-title {
     font-size: 3rem;
     font-weight: 800;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     line-height: 1.2;
+    grid-column: 2;
 }
 
 .about-content p {
@@ -458,6 +472,7 @@ section {
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 1.5rem;
     font-weight: 300;
+    text-align: justify;
 }
 
 .about-content strong {
@@ -471,11 +486,12 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+    grid-row: 1 / span 2;
 }
 
 .visual-box {
-    width: 400px;
-    height: 400px;
+    width: 360px;
+    height: 360px;
     background: var(--secondary-bg);
     border: 1px solid var(--border-color);
     border-radius: 40px;
@@ -1122,8 +1138,12 @@ section {
 /* Responsive */
 @media (max-width: 768px) {
     .navbar {
-        padding: 1rem 5%;
+        padding: 1.5rem 5%;
         justify-content: space-between;
+    }
+
+    .navbar.scrolled {
+        padding: 0.8rem 5%;
     }
 
     .logo {
@@ -1146,12 +1166,11 @@ section {
     }
 
     .nav-links li {
-        transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1),
-            opacity 2s ease,
-            max-width 0.2s ease,
-            /* Near-instant width change to avoid truncation */
-            margin 0.2s ease,
-            visibility 2s ease;
+        transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 1s ease,
+            max-width 0.4s ease,
+            margin 0.4s ease,
+            visibility 1s ease;
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -1160,30 +1179,17 @@ section {
         margin: 0;
         overflow: hidden;
         flex-shrink: 0;
-        /* CRITICAL: prevent flexbox from squashing the words */
         display: block;
-        /* Ensure they behave as blocks for width/transform */
     }
 
-    .nav-links li[data-dist="0"],
-    .nav-links li[data-dist="1"] {
+    .nav-links li[data-dist="0"] {
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
         max-width: 250px;
-        /* Generous width for long labels */
-        margin: 0 0.4rem;
-    }
-
-    .nav-links li[data-dist="0"] {
+        margin: 0;
         transform: scale(1.1);
         z-index: 2;
-    }
-
-    .nav-links li[data-dist="1"] {
-        transform: scale(0.8);
-        opacity: 0.4;
-        z-index: 1;
     }
 
     .nav-links a {
@@ -1231,28 +1237,40 @@ section {
         transform: translateX(0);
     }
 
-    /* About Section Mobile */
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
     .about-grid {
         grid-template-columns: 1fr;
         gap: 3rem;
         text-align: center;
     }
 
+    .about-title {
+        font-size: 2.2rem;
+        grid-column: 1;
+        margin-bottom: 2rem;
+        order: 1;
+        /* Title first */
+    }
+
     .about-visual {
         height: auto;
-        order: -1;
-        /* Put the visual on top */
+        order: 2;
+        /* Put the visual below the title */
+        grid-column: 1;
+        grid-row: auto;
+        /* Reset desktop grid-row */
     }
 
-    .visual-box {
-        width: 100%;
-        max-width: 320px;
-        height: 320px;
-        margin: 0 auto;
-    }
-
-    .about-content h2 {
-        font-size: 2.2rem;
+    .about-content {
+        grid-column: 1;
+        order: 3;
     }
 
     .hardware-tags span {

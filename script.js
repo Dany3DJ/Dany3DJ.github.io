@@ -101,7 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function animate() {
         const currentScrollY = window.scrollY;
-        scrollSpeed = (currentScrollY - lastScrollY) * 0.1;
+
+        // Use a smoother scroll speed calculation to avoid jumps
+        const diff = currentScrollY - lastScrollY;
+        scrollSpeed = diff * 0.1;
         lastScrollY = currentScrollY;
 
         updateOrbs(scrollSpeed);
@@ -116,11 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.style.padding = '1rem 10%';
-            navbar.style.background = 'rgba(5, 5, 5, 0.8)';
+            navbar.classList.add('scrolled');
         } else {
-            navbar.style.padding = '2rem 10%';
-            navbar.style.background = 'rgba(5, 5, 5, 0.5)';
+            navbar.classList.remove('scrolled');
         }
     });
 
@@ -138,7 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const rowConfigs = [
                 { direction: 'left', offset: false },
                 { direction: 'right', offset: false },
-                { direction: 'left', offset: true }
+                { direction: 'left', offset: true },
+                { direction: 'right', offset: true }
             ];
 
             // Split tech items evenly across rows
@@ -349,15 +351,20 @@ document.addEventListener('DOMContentLoaded', () => {
             lastScrollPosition = scrollPosition;
         }
 
-        const checkPosition = scrollPosition + 150; // Offset for navbar height
+        const checkPosition = scrollPosition + 200; // Increased offset for better detection
 
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            if (checkPosition >= sectionTop && checkPosition < sectionTop + sectionHeight) {
-                currentSectionId = section.getAttribute('id');
-            }
-        });
+        // SPECIAL CASE: Top of page is ALWAYS home
+        if (scrollPosition < 50) {
+            currentSectionId = 'hero';
+        } else {
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (checkPosition >= sectionTop && checkPosition < sectionTop + sectionHeight) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+        }
 
         navLinks.forEach(link => {
             const isTarget = link.getAttribute('href') === `#${currentSectionId}`;
@@ -365,21 +372,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isTarget) {
                 if (!link.classList.contains('active')) {
                     // Entry logic: set start position WITHOUT transition to avoid reversal
-                    // Disable transition temporarily
                     link.style.transition = 'none';
 
-                    // Moving DOWN: blue enters from LEFT (start at 100%)
-                    // Moving UP: blue enters from RIGHT (start at 0%)
                     if (scrollDirection === 'down') {
                         link.style.setProperty('--nav-fill-pos', '100%');
                     } else {
                         link.style.setProperty('--nav-fill-pos', '0%');
                     }
 
-                    // Force reflow to apply the start position immediately
+                    // Force reflow
                     link.offsetHeight;
 
-                    // Restore transition and trigger animation to center (Blue)
                     link.style.transition = '';
                     requestAnimationFrame(() => {
                         link.style.setProperty('--nav-fill-pos', '50%');
@@ -395,9 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 navUnderline.classList.add('active');
             } else {
                 if (link.classList.contains('active')) {
-                    // Exit logic: move to the opposite end
-                    // Moving DOWN: blue exits to RIGHT, white enters from LEFT (move to 0%)
-                    // Moving UP: blue exits to LEFT, white enters from RIGHT (move to 100%)
                     if (scrollDirection === 'down') {
                         link.style.setProperty('--nav-fill-pos', '0%');
                     } else {
@@ -410,29 +410,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update distances for mobile effect
         if (window.innerWidth <= 768) {
-            const activeIndex = Array.from(navLinks).findIndex(l => l.classList.contains('active'));
-            navLinks.forEach((link, index) => {
-                const distance = activeIndex === -1 ? 0 : Math.abs(index - activeIndex);
-                link.parentElement.setAttribute('data-dist', distance);
+            const activeIndex = Array.from(navLinks).findIndex(link => link.classList.contains('active'));
 
-                // On mobile, if nothing is active (top of page), focus the first link (Home)
-                if (activeIndex === -1 && index === 0) {
-                    link.parentElement.setAttribute('data-dist', 0);
-                } else if (activeIndex === -1) {
-                    link.parentElement.setAttribute('data-dist', index);
+            navLinks.forEach((link, index) => {
+                const listItem = link.parentElement;
+
+                if (activeIndex === -1) {
+                    // Fallback to Home (index 0) if no section detected
+                    listItem.setAttribute('data-dist', index === 0 ? 0 : index);
+                } else {
+                    const distance = Math.abs(index - activeIndex);
+                    listItem.setAttribute('data-dist', distance);
                 }
             });
-        } else {
-            // Reset for desktop
-            navLinks.forEach(link => {
-                link.parentElement.removeAttribute('data-dist');
-            });
         }
-
-        if (!currentSectionId) {
-            navUnderline.classList.remove('active');
-        }
-
         // Update mobile overlay menu active state
         const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
         mobileLinks.forEach(link => {
@@ -487,5 +478,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('scroll', updateActiveNavLink);
-    updateActiveNavLink(); // Initial check
+
+    // Initial check with a small delay to ensure geometry is correct
+    requestAnimationFrame(() => {
+        updateActiveNavLink();
+        // Second pass to catch any late layout changes
+        setTimeout(updateActiveNavLink, 100);
+    });
 });
