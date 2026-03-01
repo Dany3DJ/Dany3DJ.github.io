@@ -1,0 +1,83 @@
+[
+    {
+        "title": "Automated Reporting Pipeline",
+        "apps": [
+            "python",
+            "sql",
+            "powerbi",
+            "n8n"
+        ],
+        "description": "Replace manual spreadsheet work with automated data pipelines that pull, clean, and visualize your KPIs in real-time dashboards — so your team focuses on decisions, not data entry."
+    },
+    {
+        "title": "E-Commerce Product Scraper",
+        "apps": [
+            "python",
+            "restapi",
+            "airtable",
+            "n8n",
+            "google sheets"
+        ],
+        "description": "Automatically collect product data from Shopify, WooCommerce, and custom stores into a unified database — enabling competitive analysis, pricing intelligence, and catalog management at scale."
+    },
+    {
+        "title": "Smart Workflow Automation",
+        "apps": [
+            "n8n",
+            "airtable",
+            "restapi",
+            "google sheets"
+        ],
+        "description": "Connect your existing tools into intelligent workflows that assign tasks, sync data across platforms, and trigger actions based on custom rules — eliminating bottlenecks and manual hand-offs."
+    },
+    {
+        "title": "AI Content Processing",
+        "apps": [
+            "openai",
+            "python",
+            "n8n",
+            "airtable"
+        ],
+        "description": "Automatically process, filter, and curate content from dozens of sources using AI — from news article pitching to subtitle generation, turning hours of manual work into minutes."
+    },
+    {
+        "title": "Business Intelligence Dashboards",
+        "apps": [
+            "powerbi",
+            "tableau",
+            "sql",
+            "python"
+        ],
+        "description": "Transform raw business data into interactive dashboards with real-time KPIs, trend analysis, and anomaly detection — giving leadership clear visibility into performance across every department."
+    },
+    {
+        "title": "Social Media Messaging Automation",
+        "apps": [
+            "n8n",
+            "instagram",
+            "messenger",
+            "whatsapp",
+            "openai"
+        ],
+        "description": "Automatically respond to social media messages using custom responses or AI-generated responses — saving time and ensuring consistent customer interactions."
+    },
+    {
+        "title": "Daily Email Reports",
+        "apps": [
+            "n8n",
+            "airtable",
+            "restapi",
+            "email"
+        ],
+        "description": "Automatically generate and send daily reports to your team using custom responses or AI-generated responses — saving time and ensuring consistent customer interactions."
+    },
+    {
+        "title": "NFC Customer Redirect",
+        "apps": [
+            "nfc",
+            "html",
+            "javascript"
+        ],
+        "description": "Let visitors tap their phone on an NFC tag to instantly land on your website or promo page — no QR scanning, no typing URLs, just a simple swipe for frictionless engagement."
+    }
+]
