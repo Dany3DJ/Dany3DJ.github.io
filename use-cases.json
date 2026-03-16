@@ -79,5 +79,15 @@
             "javascript"
         ],
         "description": "Let visitors tap their phone on an NFC tag to instantly land on your website or promo page — no QR scanning, no typing URLs, just a simple swipe for frictionless engagement."
+    },
+    {
+        "title": "E-Commerce Automated Client Emailing",
+        "apps": [
+            "n8n",
+            "airtable",
+            "html",
+            "email"
+        ],
+        "description": "Engineered an aesthetically sophisticated HTML email system that automates personalized stock updates, ensuring a premium brand experience while maintaining data alignment for clients."
     }
 ]

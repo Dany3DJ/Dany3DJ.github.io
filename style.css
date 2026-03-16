@@ -632,6 +632,10 @@ section {
     background-image: url('assets/icons/discord.svg');
 }
 
+.linkedin-icon {
+    background-image: url('assets/icons/linkedin.svg');
+}
+
 /* Tool Icons (Dynamic Assets) */
 .tool-icon {
     width: 24px;
