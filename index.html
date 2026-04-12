@@ -7,6 +7,16 @@
     <title>Dan | Creative Engineer</title>
     <meta name="description"
         content="A creative engineer designing solutions and pushing boundaries across hardware and software engineering.">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Dan | Creative Engineer">
+    <meta property="og:description"
+        content="A creative engineer designing solutions and pushing boundaries across hardware and software engineering.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Dan | Creative Engineer">
+    <meta name="twitter:description"
+        content="A creative engineer designing solutions and pushing boundaries across hardware and software engineering.">
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +25,11 @@
 </head>
 
 <body>
+    <a href="#hero" class="skip-link">Skip to content</a>
     <canvas id="bg-canvas"></canvas>
     <div class="noise-overlay"></div>
-    <div class="cursor-glow"></div>
 
-    <nav class="navbar reveal">
+    <nav class="navbar reveal" aria-label="Main navigation">
         <div class="logo">DAN<span>.</span></div>
         <ul class="nav-links">
             <li><a href="#hero">Home</a></li>
@@ -30,15 +40,15 @@
             <li><a href="#tools">Tech Stack</a></li>
             <div class="nav-underline"></div>
         </ul>
-        <div class="menu-toggle">
+        <button class="menu-toggle" aria-label="Open menu">
             <span></span>
             <span></span>
-        </div>
+        </button>
     </nav>
 
     <div class="mobile-menu-overlay">
         <div class="mobile-menu-content">
-            <div class="close-menu">&times;</div>
+            <button class="close-menu" aria-label="Close menu">&times;</button>
             <ul class="mobile-nav-links">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About Me</a></li>
@@ -147,7 +157,7 @@
             <div class="container">
                 <div class="section-header reveal">
                     <h2 class="reveal-text">Get in <span class="accent">Touch</span></h2>
-                    <p>Have a project in mind or just want to chat hardware/software or body building? Feel free to each
+                    <p>Have a project in mind or just want to chat hardware/software or body building? Feel free to reach
                         out!</p>
                 </div>
                 <div class="contact-grid reveal-text-slow">
@@ -188,6 +198,12 @@
             </div>
         </section>
     </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>Daniel Wissa &copy; 2025</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

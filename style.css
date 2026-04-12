@@ -46,6 +46,29 @@ body {
     transition: opacity 1s ease;
 }
 
+@media (max-width: 768px) {
+    .ambient-orb {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ambient-orb {
+        display: none;
+    }
+
+    .hardware-tags span {
+        animation: none;
+    }
+
+    .reveal,
+    .reveal-text,
+    .reveal-text-slow {
+        animation: none;
+        opacity: 1;
+    }
+}
+
 
 /* Mobile Menu Sidebar */
 .mobile-menu-overlay {
@@ -94,6 +117,8 @@ body {
 }
 
 .close-menu {
+    background: none;
+    border: none;
     position: absolute;
     top: 1.5rem;
     /* Better alignment with navbar toggle */
@@ -160,23 +185,36 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     opacity: 0.05;
     pointer-events: none;
     z-index: 9999;
 }
 
-.cursor-glow {
-    position: fixed;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    filter: blur(40px);
-    transition: transform 0.1s ease-out;
+
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    background: var(--accent-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    z-index: 10000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+.site-footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
 }
 
 .container {
@@ -310,8 +348,12 @@ body {
 
 @media (max-width: 768px) {
     .nav-underline {
-        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        display: none;
     }
+}
+
+.menu-toggle {
+    display: none;
 }
 
 /* Hero Section */
@@ -879,7 +921,7 @@ section {
 
 .use-cases-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
     gap: 2rem;
 }
 
@@ -1009,8 +1051,7 @@ section {
 
 @media (max-width: 768px) {
     .tools-section {
-        padding-bottom: 30vh;
-        /* Extra space to allow centering the tab */
+        padding-bottom: 60px;
     }
 }
 
@@ -1080,7 +1121,7 @@ section {
 
 .contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 2rem;
     margin-top: 3rem;
 }
@@ -1214,6 +1255,9 @@ section {
         gap: 4px;
         cursor: pointer;
         z-index: 1001;
+        background: none;
+        border: none;
+        padding: 0;
     }
 
     .menu-toggle span {
@@ -1283,5 +1327,9 @@ section {
     .hardware-tags span {
         font-size: 0.85rem;
         padding: 6px 12px;
+    }
+
+    .about-content p {
+        text-align: left;
     }
 }

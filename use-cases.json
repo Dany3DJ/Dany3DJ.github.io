@@ -69,7 +69,7 @@
             "restapi",
             "email"
         ],
-        "description": "Automatically generate and send daily reports to your team using custom responses or AI-generated responses — saving time and ensuring consistent customer interactions."
+        "description": "Automatically generate and send daily summary reports to your team — pulling live data from your tools, formatting key metrics, and delivering them on schedule so everyone starts the day aligned."
     },
     {
         "title": "NFC Customer Redirect",

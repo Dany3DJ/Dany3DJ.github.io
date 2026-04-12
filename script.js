@@ -1,15 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Custom Cursor Glow
-    const cursorGlow = document.querySelector('.cursor-glow');
-
-    // document.addEventListener('mousemove', (e) => {
-    //     const x = e.clientX;
-    //     const y = e.clientY;
-
-    //     cursorGlow.style.left = `${x}px`;
-    //     cursorGlow.style.top = `${y}px`;
-    // });
-
     // Intersection Observer for Reveal Animations
     const observerOptions = {
         threshold: 0.1
