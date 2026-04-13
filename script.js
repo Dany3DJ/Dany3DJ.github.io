@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Use a smoother scroll speed calculation to avoid jumps
         const diff = currentScrollY - lastScrollY;
-        scrollSpeed = diff * 0.1;
+        scrollSpeed += (diff * 0.1 - scrollSpeed) * 0.1;
         lastScrollY = currentScrollY;
 
         updateOrbs(scrollSpeed);
