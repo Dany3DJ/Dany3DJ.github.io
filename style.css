@@ -46,11 +46,6 @@ body {
     transition: opacity 1s ease;
 }
 
-@media (max-width: 768px) {
-    .ambient-orb {
-        display: none;
-    }
-}
 
 @media (prefers-reduced-motion: reduce) {
     .ambient-orb {

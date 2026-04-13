@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.ambient-orb').forEach(o => o.remove());
         orbs.length = 0;
 
-        for (let i = 0; i < BACKGROUND_CONFIG.orbCount; i++) {
+        const count = window.innerWidth <= 768 ? 2 : BACKGROUND_CONFIG.orbCount;
+        for (let i = 0; i < count; i++) {
             const orbEl = document.createElement('div');
             orbEl.className = 'ambient-orb';
 
