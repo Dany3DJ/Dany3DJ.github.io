@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Botit Sidekick",
+    "description": "Executive ops dashboard giving management real-time visibility into vendor health, team status, and key metrics — replacing fragmented updates with a single source of truth.",
+    "folder": "botit_sidekick",
+    "images": [
+      "1.png",
+      "2.png"
+    ]
+  },
+  {
+    "title": "Botit Emails",
+    "description": "Automated vendor communication pipeline delivering personalized status emails daily based on live system data — eliminating manual follow-ups and keeping every vendor informed without human effort.",
+    "folder": "botit_emails",
+    "images": [
+      "1.png"
+    ]
+  },
+  {
+    "title": "Nathalie",
+    "description": "Internal ops platform combining push notifications with an AI assistant — teams query project status and get live updates through a simple chat interface instead of chasing emails.",
+    "folder": "nathalie",
+    "images": [
+      "1.png",
+      "2.png"
+    ]
+  },
+  {
+    "title": "The Spyfall Game",
+    "description": "Multiplayer social deduction game with a chaos twist — built for local pass-and-play and real-time online sessions. The kind of game that ends friendships and starts rematches.",
+    "folder": "thespyfall_game",
+    "images": [
+      "1.png",
+      "2.png"
+    ]
+  }
+]

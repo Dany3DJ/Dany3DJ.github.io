@@ -14,8 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Initial check for elements that should animate on scroll
-    // (Additional reveal logic can be added here as we add more sections)
+    // One-shot scroll-reveal for static .reveal* elements
+    // Uses a separate observer so revealed elements stay visible (no re-hide on scroll-out)
+    const revealOnce = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal, .reveal-text, .reveal-text-slow').forEach(el => {
+        revealOnce.observe(el);
+    });
 
     // Unified Background Configuration
     const BACKGROUND_CONFIG = {
@@ -114,6 +126,158 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.remove('scrolled');
         }
     });
+
+    // Projects Gallery Carousel
+    async function initProjects() {
+        const slide = document.getElementById('proj-slide');
+        const dotsContainer = document.querySelector('.proj-proj-dots');
+        if (!slide || !dotsContainer) return;
+
+        let projects = [];
+        try {
+            const res = await fetch('projects.json');
+            projects = await res.json();
+        } catch (err) {
+            console.error('Error loading projects.json:', err);
+            return;
+        }
+
+        const img = slide.querySelector('.proj-img');
+        const titleEl = slide.querySelector('.proj-title');
+        const descEl = slide.querySelector('.proj-desc');
+        const counterEl = slide.querySelector('.proj-counter');
+        const imgDotsEl = slide.querySelector('.proj-img-dots');
+
+        let currentProject = 0;
+        const currentImage = new Array(projects.length).fill(0);
+
+        function renderSlide() {
+            const proj = projects[currentProject];
+            const imgIdx = currentImage[currentProject];
+
+            img.src = `assets/project_images/${proj.folder}/${proj.images[imgIdx]}`;
+            img.alt = proj.title;
+            titleEl.textContent = proj.title;
+            descEl.textContent = proj.description;
+            counterEl.textContent = `${currentProject + 1} / ${projects.length}`;
+
+            // Image dots
+            imgDotsEl.innerHTML = '';
+            if (proj.images.length > 1) {
+                proj.images.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'proj-img-dot' + (i === imgIdx ? ' active' : '');
+                    dot.setAttribute('aria-label', `Screenshot ${i + 1}`);
+                    dot.addEventListener('click', () => {
+                        currentImage[currentProject] = i;
+                        renderSlide();
+                    });
+                    imgDotsEl.appendChild(dot);
+                });
+            }
+
+            // Project dots
+            dotsContainer.querySelectorAll('.proj-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentProject);
+                dot.setAttribute('aria-selected', String(i === currentProject));
+            });
+        }
+
+        // Jump directly to a project (with fade)
+        function goTo(idx, lastImage = false) {
+            slide.classList.add('proj-fade');
+            setTimeout(() => {
+                currentProject = (idx + projects.length) % projects.length;
+                if (lastImage) {
+                    currentImage[currentProject] = projects[currentProject].images.length - 1;
+                }
+                renderSlide();
+                slide.classList.remove('proj-fade');
+            }, 150);
+        }
+
+        // Navigate forward: next image in project, else next project
+        function goNext() {
+            const proj = projects[currentProject];
+            const imgIdx = currentImage[currentProject];
+            if (imgIdx < proj.images.length - 1) {
+                currentImage[currentProject] = imgIdx + 1;
+                renderSlide();
+            } else {
+                goTo(currentProject + 1);
+            }
+        }
+
+        // Navigate back: prev image in project, else prev project (last image)
+        function goPrev() {
+            const imgIdx = currentImage[currentProject];
+            if (imgIdx > 0) {
+                currentImage[currentProject] = imgIdx - 1;
+                renderSlide();
+            } else {
+                goTo(currentProject - 1, true);
+            }
+        }
+
+        // Build project dots
+        projects.forEach((proj, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'proj-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('role', 'tab');
+            dot.setAttribute('aria-label', proj.title);
+            dot.setAttribute('aria-selected', String(i === 0));
+            dot.addEventListener('click', () => goTo(i));
+            dotsContainer.appendChild(dot);
+        });
+
+        // Arrow buttons — now in .proj-slide-wrap, not inside slide
+        const wrap = slide.parentElement;
+        wrap.querySelector('.proj-prev').addEventListener('click', goPrev);
+        wrap.querySelector('.proj-next').addEventListener('click', goNext);
+
+        // Touch swipe
+        let touchStartX = 0;
+        slide.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        slide.addEventListener('touchend', e => {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 50) {
+                dx < 0 ? goNext() : goPrev();
+            }
+        }, { passive: true });
+
+        // Keyboard (only when section is in view)
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { closeLightbox(); return; }
+            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+            const rect = document.getElementById('projects').getBoundingClientRect();
+            if (rect.top > window.innerHeight || rect.bottom < 0) return;
+            e.key === 'ArrowLeft' ? goPrev() : goNext();
+        });
+
+        // Lightbox
+        const lightbox = document.getElementById('proj-lightbox');
+        const lightboxImg = lightbox.querySelector('.proj-lightbox-img');
+
+        function openLightbox() {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        img.addEventListener('click', openLightbox);
+        lightbox.querySelector('.proj-lightbox-close').addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+        renderSlide();
+    }
 
     // Modular Tech Stack Slider Generation
     async function initTechSlider() {
@@ -289,6 +453,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const iconWrap = document.createElement('div');
                     iconWrap.className = 'use-case-icon-wrap';
+                    iconWrap.setAttribute('tabindex', '0');
+                    iconWrap.setAttribute('role', 'img');
+                    iconWrap.setAttribute('aria-label', tech.name);
 
                     const iconEl = document.createElement('div');
                     iconEl.className = 'use-case-icon';
@@ -323,6 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTechSlider();
     initExperience();
     initUseCases();
+    initProjects();
 
     // Scroll Spy for Navbar Links
     const navLinks = document.querySelectorAll('.nav-links a');
