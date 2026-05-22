@@ -1529,7 +1529,7 @@ section {
     }
 
     .proj-overlay {
-        padding: 0 1rem 0.75rem;
+        padding: 0 1rem 2.25rem;
         height: var(--proj-text-zone);
         display: flex;
         flex-direction: column;
@@ -1538,11 +1538,11 @@ section {
     }
 
     .proj-title {
-        font-size: 0.78rem;
+        font-size: 0.95rem;
     }
 
     .proj-desc {
-        font-size: 0.68rem;
+        font-size: 0.78rem;
     }
 
     .proj-arrow {
