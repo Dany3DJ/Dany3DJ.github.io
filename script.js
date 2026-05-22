@@ -184,19 +184,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Jump directly to a project (with fade)
-        function goTo(idx, lastImage = false) {
+        function goTo(idx) {
             slide.classList.add('proj-fade');
             setTimeout(() => {
                 currentProject = (idx + projects.length) % projects.length;
-                if (lastImage) {
-                    currentImage[currentProject] = projects[currentProject].images.length - 1;
-                }
                 renderSlide();
                 slide.classList.remove('proj-fade');
             }, 150);
         }
 
-        // Navigate forward: next image in project, else next project
+        // Next image in project first, else next project (reset to image 0)
         function goNext() {
             const proj = projects[currentProject];
             const imgIdx = currentImage[currentProject];
@@ -204,18 +201,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentImage[currentProject] = imgIdx + 1;
                 renderSlide();
             } else {
-                goTo(currentProject + 1);
+                const nextIdx = (currentProject + 1) % projects.length;
+                currentImage[nextIdx] = 0;
+                goTo(nextIdx);
             }
         }
 
-        // Navigate back: prev image in project, else prev project (last image)
+        // Prev image in project first, else prev project (last image)
         function goPrev() {
             const imgIdx = currentImage[currentProject];
             if (imgIdx > 0) {
                 currentImage[currentProject] = imgIdx - 1;
                 renderSlide();
             } else {
-                goTo(currentProject - 1, true);
+                const prevIdx = (currentProject - 1 + projects.length) % projects.length;
+                currentImage[prevIdx] = projects[prevIdx].images.length - 1;
+                goTo(prevIdx);
             }
         }
 

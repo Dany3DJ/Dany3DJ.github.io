@@ -36,6 +36,7 @@
             <li><a href="#about">About Me</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#use-cases">Use Cases</a></li>
+            <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="#tools">Tech Stack</a></li>
             <div class="nav-underline"></div>
@@ -54,6 +55,7 @@
                 <li><a href="#about">About Me</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="#tools">Tech Stack</a></li>
             </ul>
@@ -153,6 +155,31 @@
             </div>
         </section>
 
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="reveal-text">My <span class="accent">Projects</span></h2>
+                    <p>A selection of things I've built.</p>
+                </div>
+            </div>
+            <div class="projects-carousel">
+                <div class="proj-slide-wrap">
+                    <div class="proj-slide" id="proj-slide">
+                        <img class="proj-img" src="" alt="">
+                        <div class="proj-overlay">
+                            <p class="proj-title"></p>
+                            <p class="proj-desc"></p>
+                        </div>
+                        <span class="proj-counter"></span>
+                        <div class="proj-img-dots"></div>
+                    </div>
+                    <button class="proj-arrow proj-prev" aria-label="Previous project">&#8249;</button>
+                    <button class="proj-arrow proj-next" aria-label="Next project">&#8250;</button>
+                </div>
+                <div class="proj-proj-dots" role="tablist" aria-label="Projects"></div>
+            </div>
+        </section>
+
         <section id="contact" class="contact-section">
             <div class="container">
                 <div class="section-header reveal">
@@ -207,6 +234,11 @@
             <p>Daniel Wissa &copy; 2026</p>
         </div>
     </footer>
+
+    <div class="proj-lightbox" id="proj-lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+        <img class="proj-lightbox-img" src="" alt="">
+        <button class="proj-lightbox-close" aria-label="Close preview">&times;</button>
+    </div>
 
     <script src="script.js"></script>
 </body>

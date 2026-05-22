@@ -123,5 +123,10 @@
         "id": "nfc",
         "name": "NFC",
         "icon": "assets/icons/tech/nfc.svg"
+    },
+    {
+        "id": "claude",
+        "name": "Claude",
+        "icon": "assets/icons/tech/claude.svg"
     }
 ]
