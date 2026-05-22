@@ -1,0 +1,288 @@
+<h2>Projects Gallery — v7 (full-bleed mobile, variable text zone)</h2>
+<p class="subtitle">Mobile: image fills phone screen. Title scrolls past above. Text zone = bottom <code>--text-zone</code>% of image.</p>
+
+<style>
+* { box-sizing: border-box; }
+.layout-split { display: grid; grid-template-columns: 1fr 260px; gap: 2.5rem; margin-top: 1.5rem; align-items: start; }
+@media (max-width: 800px) { .layout-split { grid-template-columns: 1fr; } }
+.device-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.35); margin-bottom: 0.5rem; }
+.page-sec-header { text-align: center; padding: 0 0 1.25rem; }
+.page-sec-title { font-size: 1.4rem; font-weight: 800; color: #fff; }
+.page-sec-title span { color: #0070f3; }
+.page-sec-sub { font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-top: 0.2rem; }
+.device { background: #0a0a0a; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+
+/* Desktop slide — unchanged */
+.car-slide { overflow: hidden; position: relative; background: linear-gradient(135deg, #0d1b2a 0%, #0a1628 40%, #111827 100%); }
+.car-slide.desktop { border-radius: 16px; aspect-ratio: 16/9; }
+.car-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.img-label { background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.12); border-radius: 10px; padding: 1rem 1.25rem; text-align: center; color: rgba(255,255,255,0.3); font-size: 0.72rem; }
+.img-label strong { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-bottom: 0.2rem; }
+.car-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, transparent 100%); padding: 3rem 1.25rem 1rem; }
+.car-proj-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem; }
+.car-proj-desc { font-size: 0.76rem; color: rgba(255,255,255,0.7); line-height: 1.55; }
+.car-counter { position: absolute; top: 0.7rem; right: 0.7rem; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 2px 9px; font-size: 0.62rem; color: rgba(255,255,255,0.65); }
+.car-img-dots { position: absolute; bottom: 0.65rem; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
+.img-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+.img-dot.on { background: #0070f3; width: 14px; border-radius: 3px; }
+.car-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.95rem; z-index: 2; }
+.car-wrap .car-arrow.left  { left: -18px; }
+.car-wrap .car-arrow.right { right: -18px; }
+.car-slide .car-arrow.left  { left: 10px; }
+.car-slide .car-arrow.right { right: 10px; }
+.car-wrap { position: relative; margin: 0 2rem 1rem; }
+.car-proj-dots { display: flex; justify-content: center; gap: 6px; padding: 0.5rem 0 1.5rem; }
+.proj-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+.proj-dot.on { background: #fff; }
+
+/* ── Phone frame ── */
+.mob-phone {
+  /* Control text zone here: how much % of the image height is the overlay gradient */
+  --text-zone: 38%;
+
+  background: #080808;
+  border-radius: 36px;
+  border: 2px solid rgba(255,255,255,0.12);
+  overflow: hidden;
+  width: 220px;
+  aspect-ratio: 9/19.5;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Dynamic island */
+.mob-island {
+  flex-shrink: 0;
+  height: 28px;
+  background: #050505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 6px;
+  position: relative;
+  z-index: 10;
+}
+.mob-island-pill {
+  width: 80px; height: 22px;
+  background: #000;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/*
+  The scroll area simulates page scroll.
+  "My Projects" title is above the image — it scrolled past.
+  Image is all that fills the screen.
+*/
+.mob-scroll-area {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+  position: relative;
+}
+
+/* The full-bleed image carousel — fills everything below the island */
+.mob-car-full {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #0d1b2a 0%, #0a1628 50%, #111827 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Text overlay zone — height controlled by --text-zone */
+.mob-car-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: var(--text-zone);
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 55%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 0.9rem 0.55rem;
+}
+.mob-car-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+.mob-car-desc {
+  font-size: 0.58rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+
+/* Counter */
+.mob-counter {
+  position: absolute;
+  top: 0.5rem; right: 0.5rem;
+  background: rgba(0,0,0,0.65);
+  border-radius: 100px;
+  padding: 2px 7px;
+  font-size: 0.55rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Image dots (screenshot nav) inside image */
+.mob-img-dots-inner {
+  position: absolute;
+  bottom: 0.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+}
+
+/* Floating arrows — centered on image (above text zone) */
+.mob-arrow-float {
+  position: absolute;
+  /* center vertically in the image ABOVE the text zone */
+  top: calc((100% - var(--text-zone)) / 2);
+  transform: translateY(-50%);
+  width: 28px; height: 28px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.75rem;
+  z-index: 2;
+}
+.mob-arrow-float.l { left: 8px; }
+.mob-arrow-float.r { right: 8px; }
+
+/* Project dots below image */
+.mob-proj-dots-row {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 0.4rem 0 0.45rem;
+  background: #0a0a0a;
+}
+.mob-pdot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+.mob-pdot.on { background: #fff; }
+
+/* Home bar */
+.mob-home-bar {
+  flex-shrink: 0;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+}
+.mob-home-pill { width: 80px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 100px; }
+
+/* "above the fold" label */
+.scroll-ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.52rem;
+  color: rgba(255,255,255,0.2);
+  text-align: center;
+  pointer-events: none;
+  line-height: 1.6;
+}
+
+.annotation { background: rgba(0,112,243,0.08); border-left: 2px solid #0070f3; border-radius: 0 8px 8px 0; padding: 0.6rem 0.9rem; margin-top: 1rem; font-size: 0.72rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+.annotation strong { color: #fff; display: block; margin-bottom: 0.15rem; }
+.annotation code { background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-size: 0.68rem; color: rgba(255,255,255,0.75); }
+</style>
+
+<div class="layout-split">
+
+  <!-- DESKTOP — unchanged -->
+  <div>
+    <div class="page-sec-header">
+      <div class="page-sec-title">My <span>Projects</span></div>
+      <div class="page-sec-sub">A selection of things I've built.</div>
+    </div>
+    <div class="device">
+      <div class="car-wrap">
+        <div class="car-slide desktop">
+          <div class="car-img-placeholder">
+            <div class="img-label"><strong>📸 Screenshot</strong>botit_sidekick/…</div>
+          </div>
+          <div class="car-overlay">
+            <div class="car-proj-title">Botit Sidekick</div>
+            <div class="car-proj-desc">AI assistant workflow with real-time Siri integration and n8n automation pipeline.</div>
+          </div>
+          <div class="car-counter">1 / 4</div>
+          <div class="car-img-dots"><div class="img-dot on"></div><div class="img-dot"></div></div>
+        </div>
+        <div class="car-arrow left">‹</div>
+        <div class="car-arrow right">›</div>
+      </div>
+      <div class="car-proj-dots">
+        <div class="proj-dot on"></div><div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
+      </div>
+    </div>
+    <div class="annotation">
+      <strong>Desktop — unchanged</strong>
+      16:9 image, floating side arrows outside slide, project dots below.
+    </div>
+  </div>
+
+  <!-- MOBILE -->
+  <div>
+    <div class="device-label">iPhone proportions — image fills screen</div>
+
+    <!-- "My Projects" title is above, already scrolled past -->
+    <p style="text-align:center; font-size:0.62rem; color:rgba(255,255,255,0.25); margin: 0 0 0.4rem;">↑ "My Projects" header scrolled past above</p>
+
+    <div class="mob-phone">
+      <div class="mob-island"><div class="mob-island-pill"></div></div>
+      <div class="mob-scroll-area">
+
+        <!-- Full-bleed image — no header here -->
+        <div class="mob-car-full">
+          <div class="scroll-ghost">project<br>image</div>
+
+          <!-- Text overlay zone (--text-zone controls height) -->
+          <div class="mob-car-overlay">
+            <div class="mob-car-title">Botit Sidekick</div>
+            <div class="mob-car-desc">AI assistant with Siri integration and n8n automation pipeline.</div>
+          </div>
+
+          <div class="mob-counter">1 / 4</div>
+
+          <div class="mob-img-dots-inner">
+            <div class="img-dot on"></div><div class="img-dot"></div>
+          </div>
+
+          <!-- Arrows centered in the IMAGE area (above text zone) -->
+          <div class="mob-arrow-float l">‹</div>
+          <div class="mob-arrow-float r">›</div>
+        </div>
+
+        <!-- Project dots -->
+        <div class="mob-proj-dots-row">
+          <div class="mob-pdot on"></div><div class="mob-pdot"></div><div class="mob-pdot"></div><div class="mob-pdot"></div>
+        </div>
+      </div>
+      <div class="mob-home-bar"><div class="mob-home-pill"></div></div>
+    </div>
+
+    <div class="annotation" style="margin-top:1rem">
+      <strong>Mobile — full-bleed, variable text zone</strong>
+      "My Projects" title sits above in page flow — scrolls off screen before image fills viewport. Image spans the full phone height. Text zone = bottom <code>--text-zone: 38%</code> of image. Arrows float centered in the <em>image area</em> above the text zone. Tune % in CSS to fit more/less text.
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="text-align:center; margin-top:1.5rem">Happy with this? Say yes and I'll write the spec.</p>

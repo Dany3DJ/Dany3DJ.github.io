@@ -1,0 +1,154 @@
+<h2>Gallery Carousel — Layout Direction</h2>
+<p class="subtitle">All three are mobile-first, JSON-driven. Pick the one that feels right for your projects.</p>
+
+<style>
+  .preview-wrap { display: flex; flex-direction: column; gap: 2rem; margin-top: 1.5rem; }
+  .preview-option { border: 2px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.2s; }
+  .preview-option:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+  .preview-option.selected { border-color: #0070f3 !important; }
+  .preview-label { background: rgba(0,112,243,0.12); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1rem; display: flex; align-items: center; gap: 0.75rem; }
+  .preview-label .letter { background: #0070f3; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+  .preview-label h3 { margin: 0; font-size: 0.95rem; font-weight: 600; color: #fff; }
+  .preview-label .tag { margin-left: auto; font-size: 0.7rem; padding: 2px 8px; border-radius: 100px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+  .mockup-shell { background: #0a0a0a; padding: 1.25rem; }
+
+  /* === A: CINEMATIC === */
+  .cin { background: #111; border-radius: 12px; overflow: hidden; position: relative; height: 180px; }
+  .cin-img { width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #0d1b2a 50%, #162032 100%); display: flex; align-items: center; justify-content: center; }
+  .cin-img-icon { width: 48px; height: 48px; border-radius: 8px; background: rgba(0,112,243,0.2); border: 1px solid rgba(0,112,243,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+  .cin-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%); padding: 1rem 1.25rem 0.75rem; }
+  .cin-title { color: #fff; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.2rem; }
+  .cin-desc { color: rgba(255,255,255,0.55); font-size: 0.72rem; }
+  .cin-arrows { position: absolute; top: 50%; transform: translateY(-50%); left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 0.75rem; pointer-events: none; }
+  .cin-arrow { width: 32px; height: 32px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.8rem; }
+  .cin-dots { position: absolute; bottom: 0.5rem; right: 1rem; display: flex; gap: 4px; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+  .dot.active { background: #0070f3; width: 16px; border-radius: 3px; }
+
+  /* === B: SPLIT === */
+  .split-car { background: #111; border-radius: 12px; overflow: hidden; display: grid; grid-template-columns: 55% 45%; height: 180px; }
+  .split-img { background: linear-gradient(135deg, #0d1b2a, #162032); display: flex; align-items: center; justify-content: center; border-right: 1px solid rgba(255,255,255,0.06); position: relative; }
+  .split-content { padding: 1rem 1.25rem; display: flex; flex-direction: column; justify-content: center; gap: 0.4rem; }
+  .split-title { color: #fff; font-weight: 700; font-size: 0.85rem; }
+  .split-desc { color: rgba(255,255,255,0.5); font-size: 0.68rem; line-height: 1.5; }
+  .split-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 0.2rem; }
+  .split-tag { background: rgba(0,112,243,0.15); border: 1px solid rgba(0,112,243,0.25); border-radius: 100px; padding: 1px 7px; font-size: 0.6rem; color: #0070f3; }
+  .split-arrows { display: flex; gap: 6px; margin-top: 0.5rem; }
+  .split-arrow-btn { width: 26px; height: 26px; border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: rgba(255,255,255,0.6); }
+  .split-arrow-btn.active-arr { border-color: #0070f3; color: #0070f3; }
+
+  /* === C: CARD === */
+  .card-car { background: #111; border-radius: 12px; overflow: hidden; height: 180px; display: flex; align-items: stretch; gap: 0; position: relative; }
+  .card-side-arrow { width: 36px; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 0.8rem; flex-shrink: 0; cursor: pointer; border-right: 1px solid rgba(255,255,255,0.06); }
+  .card-side-arrow.right { border-right: none; border-left: 1px solid rgba(255,255,255,0.06); }
+  .card-inner { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .card-img-area { height: 100px; background: linear-gradient(135deg, #0d1b2a, #162032); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .card-info { padding: 0.6rem 1rem; }
+  .card-title { color: #fff; font-weight: 700; font-size: 0.82rem; margin-bottom: 0.15rem; }
+  .card-desc { color: rgba(255,255,255,0.45); font-size: 0.65rem; line-height: 1.4; }
+  .card-dots { display: flex; gap: 4px; justify-content: center; padding-bottom: 0.5rem; }
+
+  .pros-row { display: flex; gap: 1rem; margin-top: 0.5rem; }
+  .pro-chip { font-size: 0.68rem; padding: 2px 8px; border-radius: 100px; background: rgba(0,200,100,0.1); border: 1px solid rgba(0,200,100,0.25); color: rgba(100,220,150,0.9); }
+  .con-chip { font-size: 0.68rem; padding: 2px 8px; border-radius: 100px; background: rgba(255,100,100,0.08); border: 1px solid rgba(255,100,100,0.2); color: rgba(255,130,130,0.9); }
+  .rec-badge { font-size: 0.65rem; padding: 2px 8px; border-radius: 100px; background: rgba(0,112,243,0.2); border: 1px solid rgba(0,112,243,0.4); color: #0070f3; margin-left: auto; }
+</style>
+
+<div class="preview-wrap">
+
+  <!-- OPTION A -->
+  <div class="preview-option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="preview-label">
+      <div class="letter">A</div>
+      <h3>Cinematic Full-Bleed</h3>
+      <span class="rec-badge">Recommended</span>
+    </div>
+    <div class="mockup-shell">
+      <div class="cin">
+        <div class="cin-img"><div class="cin-img-icon">🖼️</div></div>
+        <div class="cin-overlay">
+          <div class="cin-title">Aimina 3.0 — AI News Pitching Agent</div>
+          <div class="cin-desc">RAG architecture · 400+ articles/day · cosine similarity</div>
+        </div>
+        <div class="cin-arrows">
+          <div class="cin-arrow">‹</div>
+          <div class="cin-arrow">›</div>
+        </div>
+        <div class="cin-dots">
+          <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="pros-row" style="margin-top:0.75rem">
+        <span class="pro-chip">Images dominate</span>
+        <span class="pro-chip">Cinematic on mobile</span>
+        <span class="pro-chip">Minimal vertical space</span>
+        <span class="con-chip">Less text visible</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="preview-option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="preview-label">
+      <div class="letter">B</div>
+      <h3>Split Panel (Image + Content)</h3>
+    </div>
+    <div class="mockup-shell">
+      <div class="split-car">
+        <div class="split-img"><div class="cin-img-icon">🖼️</div></div>
+        <div class="split-content">
+          <div class="split-title">Subtitle Automation</div>
+          <div class="split-desc">SRT generation from audio, editorial proofreading, auto-correction pipeline.</div>
+          <div class="split-tags">
+            <span class="split-tag">n8n</span>
+            <span class="split-tag">Python</span>
+            <span class="split-tag">Airtable</span>
+          </div>
+          <div class="split-arrows">
+            <div class="split-arrow-btn active-arr">‹</div>
+            <div class="split-arrow-btn active-arr">›</div>
+          </div>
+        </div>
+      </div>
+      <div class="pros-row" style="margin-top:0.75rem">
+        <span class="pro-chip">Most content visible</span>
+        <span class="pro-chip">Tags readable</span>
+        <span class="con-chip">Stacks vertically on mobile</span>
+        <span class="con-chip">Image feels cramped</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="preview-option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="preview-label">
+      <div class="letter">C</div>
+      <h3>Card with Side Arrows</h3>
+    </div>
+    <div class="mockup-shell">
+      <div class="card-car">
+        <div class="card-side-arrow">‹</div>
+        <div class="card-inner">
+          <div class="card-img-area"><div class="cin-img-icon">🖼️</div></div>
+          <div class="card-info">
+            <div class="card-title">NFC Customer Redirect</div>
+            <div class="card-desc">Tap-to-land NFC tags for instant website redirect.</div>
+          </div>
+          <div class="card-dots">
+            <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+          </div>
+        </div>
+        <div class="card-side-arrow right">›</div>
+      </div>
+      <div class="pros-row" style="margin-top:0.75rem">
+        <span class="pro-chip">Familiar UX pattern</span>
+        <span class="pro-chip">Works same on mobile</span>
+        <span class="con-chip">Image area small</span>
+        <span class="con-chip">Feels safe/template-like</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:1.5rem; text-align:center">Click to select, then tell me in the terminal. On mobile A collapses to full-width image + content below.</p>

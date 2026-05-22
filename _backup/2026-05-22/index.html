@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dan | Creative Engineer</title>
+    <meta name="description"
+        content="A creative engineer designing solutions and pushing boundaries across hardware and software engineering.">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Dan | Creative Engineer">
+    <meta property="og:description"
+        content="A creative engineer designing solutions and pushing boundaries across hardware and software engineering.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Dan | Creative Engineer">
+    <meta name="twitter:description"
+        content="A creative engineer designing solutions and pushing boundaries across hardware and software engineering.">
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <a href="#hero" class="skip-link">Skip to content</a>
+    <canvas id="bg-canvas"></canvas>
+    <div class="noise-overlay"></div>
+
+    <nav class="navbar reveal" aria-label="Main navigation">
+        <div class="logo">DAN<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#use-cases">Use Cases</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#tools">Tech Stack</a></li>
+            <div class="nav-underline"></div>
+        </ul>
+        <button class="menu-toggle" aria-label="Open menu">
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu-overlay">
+        <div class="mobile-menu-content">
+            <button class="close-menu" aria-label="Close menu">&times;</button>
+            <ul class="mobile-nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#tools">Tech Stack</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="reveal-text">Designing <span class="accent">Digital</span> Solutions</h1>
+                    <p class="reveal-text-slow">A creative developer designing solutions and pushing boundaries across
+                        hardware and software engineering.</p>
+                    <div class="hero-btns reveal">
+                        <a href="#use-cases" class="btn btn-secondary">View My Work</a>
+                        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <span>Scroll Down</span>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <h2 class="about-title reveal-text">At the Intersection <br>of <br><span class="accent">Design &
+                            Engineering</span></h2>
+                    <div class="about-visual reveal">
+                        <div class="visual-box">
+                            <div class="inner-glow"></div>
+                            <div class="hardware-tags">
+                                <span>Mechatronics</span>
+                                <span>Hardware</span>
+                                <span>Software</span>
+                                <span>AI</span>
+                                <span>Automation</span>
+                                <span>User Experience</span>
+                                <span>Operations</span>
+                                <span>Design</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-content">
+                        <div class="reveal-text-slow">
+                            <p>I’m a <strong>Mechatronics Engineer</strong> working at the intersection of hardware and
+                                software. I design practical hardware solutions, implement robust software systems, and
+                                focus on seamless integration between the two.</p>
+                            <p>I’m particularly interested in <strong>AI-driven tools</strong>, intelligent
+                                <strong>automation</strong>,
+                                and building smart solutions that solve real-world problems efficiently. My work often
+                                revolves around creating structured workflows and scalable systems that reduce friction
+                                and improve performance.
+                            </p>
+                            <p>I have a strong interest in <strong>operations and process optimization</strong>. I enjoy
+                                analyzing systems, identifying inefficiencies, and automating manual work to create
+                                smoother, more reliable workflows. For me, good engineering is not just about building
+                                systems — it’s about improving how things actually run.</p>
+                            <p>Outside of engineering, I approach weight lifting the same way I approach systems —
+                                <strong>science-based, data-driven</strong>, and built on consistency and efficiency.
+                                I’m
+                                also deeply interested in <strong>finance and investing</strong>, applying the same
+                                analytical mindset to markets, risk management, and long-term decision making.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="experience-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="reveal-text">My <span class="accent">Experience</span></h2>
+                    <p>A timeline of my professional journey and key contributions.</p>
+                </div>
+                <div id="experience-timeline" class="experience-timeline">
+                    <!-- Cards injected by script.js -->
+                </div>
+            </div>
+        </section>
+
+        <section id="use-cases" class="use-cases-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="reveal-text">Use <span class="accent">Cases</span></h2>
+                    <p>Real solutions I build to help businesses work smarter and scale faster.</p>
+                </div>
+                <div id="use-cases-grid" class="use-cases-grid">
+                    <!-- Cards injected by script.js -->
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="reveal-text">Get in <span class="accent">Touch</span></h2>
+                    <p>Have a project in mind or just want to chat hardware/software or body building? Feel free to reach
+                        out!</p>
+                </div>
+                <div class="contact-grid reveal-text-slow">
+                    <a href="mailto:Danyjkw@hotmail.com" class="contact-card">
+                        <div class="brand-icon email-icon"></div>
+                        <h3>Email</h3>
+                        <p>Danyjkw@hotmail.com</p>
+                    </a>
+                    <a href="https://wa.me/+201111811691" target="_blank" class="contact-card">
+                        <div class="brand-icon whatsapp-icon"></div>
+                        <h3>WhatsApp</h3>
+                        <p>+20 111 181 1691</p>
+                    </a>
+                    <a href="https://www.linkedin.com/in/dany3dj/" target="_blank" class="contact-card">
+                        <div class="brand-icon linkedin-icon"></div>
+                        <h3>LinkedIn</h3>
+                        <p>Daniel Wissa</p>
+                    </a>
+                    <a href="https://discord.com/users/dany3dj" target="_blank" class="contact-card">
+                        <div class="brand-icon discord-icon"></div>
+                        <h3>Discord</h3>
+                        <p>dany3dj</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools" class="tools-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="reveal-text">Tech <span class="accent">Stack</span></h2>
+                    <p>The tools and technologies I use to bridge hardware and software.</p>
+                </div>
+            </div>
+
+            <div class="tools-slider-container" id="tools-slider">
+                <!-- Rows will be injected here by script.js -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>Daniel Wissa &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

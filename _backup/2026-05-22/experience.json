@@ -1,0 +1,45 @@
+[
+    {
+        "title": "AI & Automation Engineer",
+        "company": "MO4 Network",
+        "start": "Dec 2025",
+        "end": "Present",
+        "bullets": [
+            "Implemented a dynamic Airtable assignment system using a map-based lookup, matching designers, editors, and executives to articles based on variables like publication, keywords, and other criteria, eliminating hard-coded assignments and automating role allocation for hundreds of articles.",
+            "Built an n8n workflow that synchronizes guest invitation statuses from a client system to our database, with Siri integration for real-time, hands-free status checks by the backend team.",
+            "Developed Aimina 3.0, an AI news-pitching agent using RAG architecture, vector embeddings, cosine similarity, and multi-stage AI filtering, processing 400+ daily articles from 20+ sources and distilling them into a curated set of high-quality pitches.",
+            "Created an n8n scraping workflow that extracts product data from Shopify, Zamit, WooCommerce, and custom websites using API and HTML parsing, automating product collection across multiple e-commerce platforms.",
+            "Built an automated subtitles workflow integrated with Airtable that generates SRT files from audio attachments, routes text for editorial proofreading, and applies corrections automatically, accelerating the video production process.",
+            "Developed a Python-based UI application that downloads videos from multiple platforms via URL, streamlining content sourcing and enabling editors to work locally with minimal setup.",
+            "Created a Python application that overlays subtitles on audio/video files, providing playback controls for timing validation and correction, improving subtitle accuracy, and reducing errors before publication."
+        ]
+    },
+    {
+        "title": "Rate Analyst",
+        "company": "Santeon Group",
+        "start": "Sep 2024",
+        "end": "Nov 2025",
+        "bullets": [
+            "Updated insurance plan rates based on employee census data and insurer guidelines.",
+            "Debugged and optimized a medical proposal system using C# and no-code tools.",
+            "Improved data flow accuracy by identifying and correcting systematic errors.",
+            "Developed custom scripts using PowerShell to automate repetitive tasks, significantly reducing manual workload.",
+            "Created internal testing tools using VBA to validate rate updates, detect anomalies, and streamline the QA process for faster, more accurate verification."
+        ]
+    },
+    {
+        "title": "Junior AI & Automation Specialist",
+        "company": "London in Arabic",
+        "start": "May 2024",
+        "end": "Aug 2024",
+        "bullets": [
+            "Researched and implemented AI tools to enhance workflows across marketing, operations, and customer service teams.",
+            "Developed automations using Power Automate, Zapier, and ClickUp to streamline repetitive tasks.",
+            "Built dashboards for task tracking, improving team collaboration and providing insights via KPIs like ticket status and performance.",
+            "Automated reporting pipelines to cut manual entry errors by 80% and reduce processing time by 60%.",
+            "Created an automated customer response system using Respond.io with custom AI logic, supporting 20+ service pages.",
+            "Managed 26 browser profiles and proxies for 11 team members with automated monitoring and credential tracking tools.",
+            "Delivered daily automated reporting alerts to reduce management overhead by 50%."
+        ]
+    }
+]

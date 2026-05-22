@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-22T00:00:00Z",
+  "title": "Design System: Daniel Wissa — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "near-black": {
+        "role": "neutral",
+        "displayName": "Near-Black",
+        "canonical": "oklch(4% 0.005 250)",
+        "tonalRamp": ["#050505", "#0d0d0d", "#1a1a1a", "#262626", "#333333", "#595959", "#8c8c8c", "#d9d9d9"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "oklch(9% 0.005 250)",
+        "tonalRamp": ["#0a0a0a", "#111111", "#1c1c1c", "#282828", "#363636", "#5c5c5c", "#8f8f8f", "#dbdbdb"]
+      },
+      "electric-blue": {
+        "role": "primary",
+        "displayName": "Electric Blue",
+        "canonical": "oklch(55% 0.22 259)",
+        "tonalRamp": ["#001326", "#00214d", "#003380", "#0051c2", "#0070f3", "#4d9fff", "#86bfff", "#c4dfff"]
+      },
+      "blue-glow": {
+        "role": "primary",
+        "displayName": "Blue Glow",
+        "canonical": "oklch(55% 0.22 259 / 0.4)",
+        "tonalRamp": ["#0070f31a", "#0070f333", "#0070f34d", "#0070f366", "#0070f380", "#0070f399", "#0070f3b3", "#0070f3cc"]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "oklch(99% 0.002 250)",
+        "tonalRamp": ["#1a1a1a", "#333333", "#4d4d4d", "#737373", "#a6a6a6", "#cccccc", "#e6e6e6", "#ffffff"]
+      },
+      "ghost-border": {
+        "role": "neutral",
+        "displayName": "Ghost Border",
+        "canonical": "oklch(99% 0.002 250 / 0.1)",
+        "tonalRamp": ["#ffffff0d", "#ffffff1a", "#ffffff26", "#ffffff33", "#ffffff4d", "#ffffff66", "#ffffff80", "#ffffff99"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero heading only. One instance per page." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles (h2). Anchors each major section." },
+      "title": { "displayName": "Title", "purpose": "Card titles and experience role names." },
+      "body": { "displayName": "Body", "purpose": "Paragraph text. Max 65-75ch line length." },
+      "label": { "displayName": "Label", "purpose": "Nav links, date badges, status tags. Always uppercase for navigation." }
+    },
+    "shadows": [
+      { "name": "hover-lift", "value": "0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(0,112,243,0.08)", "purpose": "Standard cards on hover." },
+      { "name": "contact-lift", "value": "0 20px 40px rgba(0,0,0,0.4)", "purpose": "Contact cards on hover — larger vertical lift." },
+      { "name": "cta-glow-rest", "value": "0 0 20px rgba(0,112,243,0.3)", "purpose": "Primary button at rest." },
+      { "name": "cta-glow-hover", "value": "0 10px 30px rgba(0,112,243,0.5)", "purpose": "Primary button on hover." },
+      { "name": "dot-pulse", "value": "0 0 12px rgba(0,112,243,0.4)", "purpose": "Timeline dots." },
+      { "name": "icon-glow", "value": "drop-shadow(0 0 8px #0070f3)", "purpose": "Icon hover state (filter, not box-shadow)." }
+    ],
+    "motion": [
+      { "name": "ease-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Primary easing for all UI transitions. The system's motion signature." },
+      { "name": "ease-standard", "value": "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default shorthand transition for interactive elements." },
+      { "name": "ease-fast", "value": "0.3s ease", "purpose": "Quick state changes: opacity, simple color shifts." },
+      { "name": "marquee", "value": "60s linear infinite", "purpose": "Tool stack infinite scroll rows." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "768px", "purpose": "Single breakpoint. Below: single-column, mobile nav, stacked cards." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA. Electric Blue with at-rest glow. Use for the highest-priority action on any section.",
+      "html": "<a href=\"#contact\" class=\"ds-btn-primary\">Get in Touch</a>",
+      "css": ".ds-btn-primary { display: inline-block; padding: 1rem 2.5rem; border-radius: 100px; background-color: #0070f3; color: #ffffff; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; text-decoration: none; border: 1px solid transparent; box-shadow: 0 0 20px rgba(0,112,243,0.3); transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.6s cubic-bezier(0.16,1,0.3,1); cursor: pointer; } .ds-btn-primary:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,112,243,0.5); } .ds-btn-primary:focus-visible { outline: 2px solid #0070f3; outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiet sibling to the primary. Transparent with ghost border. Use alongside a primary button.",
+      "html": "<a href=\"#use-cases\" class=\"ds-btn-secondary\">View My Work</a>",
+      "css": ".ds-btn-secondary { display: inline-block; padding: 1rem 2.5rem; border-radius: 100px; background-color: transparent; color: #ffffff; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); transition: background 0.6s cubic-bezier(0.16,1,0.3,1), border-color 0.6s cubic-bezier(0.16,1,0.3,1); cursor: pointer; } .ds-btn-secondary:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); } .ds-btn-secondary:focus-visible { outline: 2px solid #0070f3; outline-offset: 3px; }"
+    },
+    {
+      "name": "Standard Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Default surface for content. Used in use-cases grid, experience timeline. Flat at rest, lifts on hover with blue border.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">Automated Reporting Pipeline</h3><p class=\"ds-card-body\">Replace manual spreadsheet work with automated data pipelines that pull, clean, and visualize your KPIs in real-time dashboards.</p></div>",
+      "css": ".ds-card { background: #111111; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem 2.5rem; transition: all 0.6s cubic-bezier(0.16,1,0.3,1); } .ds-card:hover { border-color: #0070f3; background: rgba(17,17,17,0.7); transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 30px rgba(0,112,243,0.08); } .ds-card-title { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; color: #ffffff; margin-bottom: 1rem; } .ds-card-body { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.7; }"
+    },
+    {
+      "name": "Contact Card",
+      "kind": "card",
+      "refersTo": "card-contact",
+      "description": "Larger card for contact methods. 24px radius, 3rem padding, stronger hover lift, 'Open →' label appears on hover.",
+      "html": "<a href=\"mailto:Danyjkw@hotmail.com\" class=\"ds-contact-card\"><div class=\"ds-contact-icon\" style=\"background-image: url('assets/icons/email.svg')\"></div><h3 class=\"ds-contact-name\">Email</h3><p class=\"ds-contact-handle\">Danyjkw@hotmail.com</p></a>",
+      "css": ".ds-contact-card { position: relative; display: block; background: #111111; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 3rem; text-align: center; text-decoration: none; color: #ffffff; transition: all 0.6s cubic-bezier(0.16,1,0.3,1); overflow: hidden; } .ds-contact-card::after { content: 'Open →'; position: absolute; bottom: 1.2rem; right: 1.5rem; font-size: 0.75rem; font-weight: 500; color: #0070f3; opacity: 0; transform: translateX(-8px); transition: opacity 0.3s ease, transform 0.3s ease; } .ds-contact-card:hover { transform: translateY(-10px); border-color: #0070f3; background: rgba(17,17,17,0.98); box-shadow: 0 20px 40px rgba(0,0,0,0.4); } .ds-contact-card:hover::after { opacity: 0.8; transform: translateX(0); } .ds-contact-icon { width: 40px; height: 40px; margin: 0 auto 1.5rem; background-size: contain; background-repeat: no-repeat; background-position: center; filter: brightness(0) invert(1); opacity: 0.8; transition: all 0.6s cubic-bezier(0.16,1,0.3,1); } .ds-contact-card:hover .ds-contact-icon { opacity: 1; transform: scale(1.2); filter: brightness(0) invert(1) drop-shadow(0 0 15px #0070f3); } .ds-contact-name { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; } .ds-contact-handle { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.6); }"
+    },
+    {
+      "name": "Skill Tag",
+      "kind": "chip",
+      "refersTo": "card",
+      "description": "Floating animated tag in the About visual box. Electric Blue text, ghost border, pill radius. Pauses float animation on hover.",
+      "html": "<span class=\"ds-skill-tag\">Automation</span>",
+      "css": ".ds-skill-tag { display: inline-block; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 100px; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; color: #0070f3; backdrop-filter: blur(5px); animation: ds-tag-float 3s ease-in-out infinite; transition: all 0.6s cubic-bezier(0.16,1,0.3,1); } .ds-skill-tag:hover { background: rgba(0,112,243,0.15); border-color: #0070f3; box-shadow: 0 0 20px rgba(0,112,243,0.15); animation-play-state: paused; } @keyframes ds-tag-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } } @media (prefers-reduced-motion: reduce) { .ds-skill-tag { animation: none; } }"
+    },
+    {
+      "name": "Date Badge",
+      "kind": "chip",
+      "refersTo": "card",
+      "description": "Timeline date marker. Blue-tinted to signal temporal metadata, distinct from skill tags.",
+      "html": "<span class=\"ds-date-badge\">Dec 2025</span>",
+      "css": ".ds-date-badge { display: inline-flex; align-items: center; padding: 0.3rem 0.8rem; border-radius: 100px; font-family: 'Outfit', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.3px; color: rgba(255,255,255,0.7); background: rgba(0,112,243,0.15); border: 1px solid rgba(0,112,243,0.25); line-height: 1; white-space: nowrap; }"
+    },
+    {
+      "name": "Tool Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Compact card in the Tech Stack marquee. Icon left, label right. Used in infinite-scroll rows.",
+      "html": "<div class=\"ds-tool-card\"><div class=\"ds-tool-icon\" style=\"background-image: url('assets/icons/tech/python.svg')\"></div><span>Python</span></div>",
+      "css": ".ds-tool-card { display: flex; align-items: center; justify-content: center; background: #111111; border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem 2rem; border-radius: 16px; min-width: 240px; transition: all 0.6s cubic-bezier(0.16,1,0.3,1); } .ds-tool-card:hover { border-color: #0070f3; background: rgba(255,255,255,0.05); transform: scale(1.05); } .ds-tool-icon { width: 24px; height: 24px; margin-right: 12px; background-size: contain; background-repeat: no-repeat; background-position: center; filter: brightness(0) invert(1); opacity: 0.7; transition: all 0.6s cubic-bezier(0.16,1,0.3,1); } .ds-tool-card:hover .ds-tool-icon { opacity: 1; transform: scale(1.2); filter: brightness(0) invert(1) drop-shadow(0 0 8px #0070f3); } .ds-tool-card span { font-family: 'Outfit', sans-serif; font-size: 1.2rem; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,0.8); }"
+    },
+    {
+      "name": "Section Header",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Centered section title + subtitle block. Used at the top of every major section.",
+      "html": "<div class=\"ds-section-header\"><h2 class=\"ds-section-title\">Use <span class=\"ds-accent\">Cases</span></h2><p class=\"ds-section-subtitle\">Real solutions I build to help businesses work smarter and scale faster.</p></div>",
+      "css": ".ds-section-header { text-align: center; margin-bottom: 4rem; } .ds-section-title { font-family: 'Outfit', sans-serif; font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; color: #ffffff; } .ds-accent { color: #0070f3; } .ds-section-subtitle { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 60ch; margin: 0 auto; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Blueprint at Night",
+    "overview": "Daniel Wissa's portfolio is a precision instrument in darkness. The page does not try to impress — it persuades. Every section answers the client's question before they ask it: can this person solve my problem and deliver? The layout is structured, the information hierarchical, the accent color deployed with intent. When blue appears, it means something.\n\nThe visual language is that of an engineer who thinks in systems. Dark surfaces, tight typography, confident spacing. Ambient orbs and noise texture give the darkness texture without adding noise. Nothing decorates; everything functions.\n\nThis system explicitly rejects the generic dark-sidebar portfolio template, the cheap-freelancer-site aesthetic, and the corporate HR page.",
+    "keyCharacteristics": [
+      "Near-black field with a single trusted blue voice",
+      "Outfit at extreme weights (800 display, 300 body) — the contrast IS the hierarchy",
+      "Cards are surfaces that hold information, not frames around it",
+      "Hover states have authority: translate, glow, border shift",
+      "Blue fires sparingly: CTAs, active states, accent spans, hover borders only"
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Electric Blue (#0070f3) occupies at most 15% of any given screen. Its rarity is the point.", "section": "colors" },
+      { "name": "The Opacity Stack Rule", "body": "White text is always #ffffff — opacity varies by hierarchy (100% headings, 70% body, 60% supporting, 40% muted). Never substitute a gray hex.", "section": "colors" },
+      { "name": "The Contrast Rule", "body": "Hierarchy is achieved through weight, not size alone. 800 vs 300 is the primary instrument.", "section": "typography" },
+      { "name": "The Single Family Rule", "body": "Outfit only. No second typeface, no monospace exception.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Every surface is flat at rest. Shadows appear only as a response to user interaction.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use #0070f3 sparingly — CTAs, active nav, hover borders, accent spans in headings.",
+      "Do use Outfit weight 800 vs 300 as the primary hierarchy tool.",
+      "Do use cubic-bezier(0.16,1,0.3,1) for all UI transitions.",
+      "Do keep body text at weight 300, max 65-75ch line length.",
+      "Do shift card borders to #0070f3 on hover as the primary hover signal.",
+      "Do suppress ambient orbs and float animations under prefers-reduced-motion.",
+      "Do treat the quality of the page itself as evidence of capability."
+    ],
+    "donts": [
+      "Don't build a generic dark-sidebar portfolio layout.",
+      "Don't create a cheap-freelancer aesthetic: cluttered sections, mismatched spacing, low-signal copy.",
+      "Don't use a corporate HR-page structure with rigid symmetrical columns.",
+      "Don't use animations as the main event — every motion must serve information.",
+      "Don't add a second accent color. One blue, one dark, one white.",
+      "Don't use gradient text decoratively.",
+      "Don't apply ambient shadows at rest.",
+      "Don't use text-align: justify on body text.",
+      "Don't use side-stripe borders (border-left > 1px as colored accent).",
+      "Don't spread backdrop-filter to cards or page-level content elements."
+    ]
+  }
+}

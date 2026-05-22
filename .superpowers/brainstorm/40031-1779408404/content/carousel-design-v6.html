@@ -1,0 +1,226 @@
+<h2>Projects Gallery — v6 (realistic phone)</h2>
+<p class="subtitle">Modern phone aspect ratio (~9:19.5). Image fills most of the screen height.</p>
+
+<style>
+* { box-sizing: border-box; }
+.layout-split { display: grid; grid-template-columns: 1fr 260px; gap: 2.5rem; margin-top: 1.5rem; align-items: start; }
+@media (max-width: 800px) { .layout-split { grid-template-columns: 1fr; } }
+.device-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.35); margin-bottom: 0.5rem; }
+.page-sec-header { text-align: center; padding: 0 0 1.25rem; }
+.page-sec-title { font-size: 1.4rem; font-weight: 800; color: #fff; }
+.page-sec-title span { color: #0070f3; }
+.page-sec-sub { font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-top: 0.2rem; }
+.device { background: #0a0a0a; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+
+/* shared overlay slide */
+.car-slide { overflow: hidden; position: relative; background: linear-gradient(135deg, #0d1b2a 0%, #0a1628 40%, #111827 100%); }
+.car-slide.desktop { border-radius: 16px; aspect-ratio: 16/9; }
+.car-slide.mobile-slide { aspect-ratio: 9/16; border-radius: 0; }
+.car-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.img-label { background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.12); border-radius: 10px; padding: 1rem 1.25rem; text-align: center; color: rgba(255,255,255,0.3); font-size: 0.72rem; }
+.img-label strong { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-bottom: 0.2rem; }
+
+.car-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, transparent 100%); padding: 3rem 1.25rem 1rem; }
+.car-proj-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem; }
+.car-proj-desc { font-size: 0.76rem; color: rgba(255,255,255,0.7); line-height: 1.55; }
+
+.car-counter { position: absolute; top: 0.7rem; right: 0.7rem; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 2px 9px; font-size: 0.62rem; color: rgba(255,255,255,0.65); }
+.car-img-dots { position: absolute; bottom: 0.65rem; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
+.img-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+.img-dot.on { background: #0070f3; width: 14px; border-radius: 3px; }
+
+/* Floating arrows */
+.car-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.95rem; z-index: 2; }
+.car-wrap .car-arrow.left  { left: -18px; }
+.car-wrap .car-arrow.right { right: -18px; }
+.car-slide .car-arrow.left  { left: 10px; }
+.car-slide .car-arrow.right { right: 10px; }
+
+/* Desktop */
+.car-wrap { position: relative; margin: 0 2rem 1rem; }
+.car-proj-dots { display: flex; justify-content: center; gap: 6px; padding: 0.5rem 0 1.5rem; }
+.proj-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+.proj-dot.on { background: #fff; }
+
+/* Phone frame — tall modern ratio ~9:19.5 */
+.mob-phone {
+  background: #080808;
+  border-radius: 36px;
+  border: 2px solid rgba(255,255,255,0.12);
+  overflow: hidden;
+  width: 220px;
+  /* ~9:19.5 ratio */
+  aspect-ratio: 9/19.5;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Dynamic island */
+.mob-island {
+  flex-shrink: 0;
+  height: 28px;
+  background: #050505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 6px;
+}
+.mob-island-pill {
+  width: 80px; height: 22px;
+  background: #000;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Page scroll area inside phone */
+.mob-scroll-area {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+}
+
+/* Simulated page above carousel */
+.mob-page-header {
+  padding: 1rem 1rem 0.75rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+.mob-page-nav {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 0.75rem;
+}
+.mob-nav-logo { font-size: 0.75rem; font-weight: 800; color: #fff; }
+.mob-nav-logo span { color: #0070f3; }
+.mob-nav-dot { width: 16px; height: 2px; background: rgba(255,255,255,0.3); border-radius: 2px; }
+
+.mob-section-title { font-size: 0.95rem; font-weight: 800; color: #fff; text-align: center; }
+.mob-section-title span { color: #0070f3; }
+.mob-section-sub { font-size: 0.6rem; color: rgba(255,255,255,0.4); text-align: center; margin-top: 0.15rem; }
+
+/* Carousel inside phone */
+.mob-car-wrap { flex: 1; position: relative; overflow: hidden; }
+.mob-car-img {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #0d1b2a 0%, #0a1628 50%, #111827 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.mob-car-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 45%, transparent 100%);
+  padding: 2rem 0.9rem 0.75rem;
+}
+.mob-car-title { font-size: 0.8rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem; }
+.mob-car-desc { font-size: 0.62rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+.mob-counter { position: absolute; top: 0.5rem; right: 0.5rem; background: rgba(0,0,0,0.65); border-radius: 100px; padding: 2px 7px; font-size: 0.55rem; color: rgba(255,255,255,0.6); }
+.mob-img-dots-inner { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
+.mob-arrow-float { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.8); font-size: 0.75rem; }
+.mob-arrow-float.l { left: 8px; }
+.mob-arrow-float.r { right: 8px; }
+
+.mob-proj-dots-row { flex-shrink: 0; display: flex; justify-content: center; gap: 5px; padding: 0.45rem 0 0.5rem; }
+.mob-pdot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+.mob-pdot.on { background: #fff; }
+
+/* Home bar */
+.mob-home-bar { flex-shrink: 0; height: 20px; display: flex; align-items: center; justify-content: center; background: #0a0a0a; }
+.mob-home-pill { width: 80px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 100px; }
+
+.annotation { background: rgba(0,112,243,0.08); border-left: 2px solid #0070f3; border-radius: 0 8px 8px 0; padding: 0.6rem 0.9rem; margin-top: 1rem; font-size: 0.72rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+.annotation strong { color: #fff; display: block; margin-bottom: 0.15rem; }
+</style>
+
+<div class="layout-split">
+
+  <!-- DESKTOP -->
+  <div>
+    <div class="page-sec-header">
+      <div class="page-sec-title">My <span>Projects</span></div>
+      <div class="page-sec-sub">A selection of things I've built.</div>
+    </div>
+    <div class="device">
+      <div class="car-wrap">
+        <div class="car-slide desktop">
+          <div class="car-img-placeholder">
+            <div class="img-label"><strong>📸 Screenshot</strong>botit_sidekick/…</div>
+          </div>
+          <div class="car-overlay">
+            <div class="car-proj-title">Botit Sidekick</div>
+            <div class="car-proj-desc">AI assistant workflow with real-time Siri integration and n8n automation pipeline.</div>
+          </div>
+          <div class="car-counter">1 / 4</div>
+          <div class="car-img-dots"><div class="img-dot on"></div><div class="img-dot"></div></div>
+        </div>
+        <div class="car-arrow left">‹</div>
+        <div class="car-arrow right">›</div>
+      </div>
+      <div class="car-proj-dots">
+        <div class="proj-dot on"></div><div class="proj-dot"></div><div class="proj-dot"></div><div class="proj-dot"></div>
+      </div>
+    </div>
+    <div class="annotation">
+      <strong>Desktop — unchanged</strong>
+      16:9 image, floating side arrows outside the slide, project dots below.
+    </div>
+  </div>
+
+  <!-- MOBILE — realistic phone -->
+  <div>
+    <div class="device-label">iPhone 15 Pro proportions</div>
+    <div class="mob-phone">
+      <div class="mob-island"><div class="mob-island-pill"></div></div>
+      <div class="mob-scroll-area">
+        <!-- Simulated minimal navbar -->
+        <div class="mob-page-nav">
+          <div class="mob-nav-logo">DAN<span>.</span></div>
+          <div class="mob-nav-dot"></div>
+        </div>
+        <!-- Section header -->
+        <div class="mob-page-header">
+          <div class="mob-section-title">My <span>Projects</span></div>
+          <div class="mob-section-sub">A selection of things I've built.</div>
+        </div>
+        <!-- Carousel fills remaining height -->
+        <div class="mob-car-wrap">
+          <div class="mob-car-img">
+            <div class="img-label" style="font-size:0.6rem"><strong style="font-size:0.7rem">📸</strong>project image</div>
+            <div class="mob-car-overlay">
+              <div class="mob-car-title">Botit Sidekick</div>
+              <div class="mob-car-desc">AI assistant with Siri integration and n8n automation pipeline.</div>
+            </div>
+            <div class="mob-counter">1 / 4</div>
+            <div class="mob-img-dots-inner">
+              <div class="img-dot on"></div><div class="img-dot"></div>
+            </div>
+            <div class="mob-arrow-float l">‹</div>
+            <div class="mob-arrow-float r">›</div>
+          </div>
+        </div>
+        <div class="mob-proj-dots-row">
+          <div class="mob-pdot on"></div><div class="mob-pdot"></div><div class="mob-pdot"></div><div class="mob-pdot"></div>
+        </div>
+      </div>
+      <div class="mob-home-bar"><div class="mob-home-pill"></div></div>
+    </div>
+    <div class="annotation" style="margin-top:1rem">
+      <strong>Modern phone — image dominates</strong>
+      9:16 image fills most of the screen below the nav + section header. Overlay text burns in at the bottom. Arrows float inside. Only 4 dots below. Swipe navigates.
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="text-align:center; margin-top:1.5rem">Happy with this? Say yes and I'll write the spec.</p>
