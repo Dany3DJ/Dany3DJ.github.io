@@ -127,11 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Projects Gallery Carousel
+    // Projects: featured rows + compact grid for the rest
     async function initProjects() {
-        const slide = document.getElementById('proj-slide');
-        const dotsContainer = document.querySelector('.proj-proj-dots');
-        if (!slide || !dotsContainer) return;
+        const rowsContainer = document.getElementById('projects-rows');
+        const moreBlock = document.getElementById('projects-more');
+        const gridContainer = document.getElementById('projects-grid');
+        if (!rowsContainer || !gridContainer) return;
 
         let projects = [];
         try {
@@ -142,142 +143,174 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const img = slide.querySelector('.proj-img');
-        const titleEl = slide.querySelector('.proj-title');
-        const descEl = slide.querySelector('.proj-desc');
-        const counterEl = slide.querySelector('.proj-counter');
-        const imgDotsEl = slide.querySelector('.proj-img-dots');
-
-        let currentProject = 0;
-        const currentImage = new Array(projects.length).fill(0);
-
-        function renderSlide() {
-            const proj = projects[currentProject];
-            const imgIdx = currentImage[currentProject];
-
-            img.src = `assets/project_images/${proj.folder}/${proj.images[imgIdx]}`;
-            img.alt = proj.title;
-            titleEl.textContent = proj.title;
-            descEl.textContent = proj.description;
-            counterEl.textContent = `${currentProject + 1} / ${projects.length}`;
-
-            // Image dots
-            imgDotsEl.innerHTML = '';
-            if (proj.images.length > 1) {
-                proj.images.forEach((_, i) => {
-                    const dot = document.createElement('button');
-                    dot.className = 'proj-img-dot' + (i === imgIdx ? ' active' : '');
-                    dot.setAttribute('aria-label', `Screenshot ${i + 1}`);
-                    dot.addEventListener('click', () => {
-                        currentImage[currentProject] = i;
-                        renderSlide();
-                    });
-                    imgDotsEl.appendChild(dot);
-                });
-            }
-
-            // Project dots
-            dotsContainer.querySelectorAll('.proj-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentProject);
-                dot.setAttribute('aria-selected', String(i === currentProject));
-            });
-        }
-
-        // Jump directly to a project (with fade)
-        function goTo(idx) {
-            slide.classList.add('proj-fade');
-            setTimeout(() => {
-                currentProject = (idx + projects.length) % projects.length;
-                renderSlide();
-                slide.classList.remove('proj-fade');
-            }, 150);
-        }
-
-        // Next image in project first, else next project (reset to image 0)
-        function goNext() {
-            const proj = projects[currentProject];
-            const imgIdx = currentImage[currentProject];
-            if (imgIdx < proj.images.length - 1) {
-                currentImage[currentProject] = imgIdx + 1;
-                renderSlide();
-            } else {
-                const nextIdx = (currentProject + 1) % projects.length;
-                currentImage[nextIdx] = 0;
-                goTo(nextIdx);
-            }
-        }
-
-        // Prev image in project first, else prev project (last image)
-        function goPrev() {
-            const imgIdx = currentImage[currentProject];
-            if (imgIdx > 0) {
-                currentImage[currentProject] = imgIdx - 1;
-                renderSlide();
-            } else {
-                const prevIdx = (currentProject - 1 + projects.length) % projects.length;
-                currentImage[prevIdx] = projects[prevIdx].images.length - 1;
-                goTo(prevIdx);
-            }
-        }
-
-        // Build project dots
-        projects.forEach((proj, i) => {
-            const dot = document.createElement('button');
-            dot.className = 'proj-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('role', 'tab');
-            dot.setAttribute('aria-label', proj.title);
-            dot.setAttribute('aria-selected', String(i === 0));
-            dot.addEventListener('click', () => goTo(i));
-            dotsContainer.appendChild(dot);
-        });
-
-        // Arrow buttons — now in .proj-slide-wrap, not inside slide
-        const wrap = slide.parentElement;
-        wrap.querySelector('.proj-prev').addEventListener('click', goPrev);
-        wrap.querySelector('.proj-next').addEventListener('click', goNext);
-
-        // Touch swipe
-        let touchStartX = 0;
-        slide.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-        }, { passive: true });
-        slide.addEventListener('touchend', e => {
-            const dx = e.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(dx) > 50) {
-                dx < 0 ? goNext() : goPrev();
-            }
-        }, { passive: true });
-
-        // Keyboard (only when section is in view)
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') { closeLightbox(); return; }
-            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-            const rect = document.getElementById('projects').getBoundingClientRect();
-            if (rect.top > window.innerHeight || rect.bottom < 0) return;
-            e.key === 'ArrowLeft' ? goPrev() : goNext();
-        });
-
         // Lightbox
         const lightbox = document.getElementById('proj-lightbox');
         const lightboxImg = lightbox.querySelector('.proj-lightbox-img');
+        let lastFocused = null;
+        const lightboxClose = lightbox.querySelector('.proj-lightbox-close');
 
-        function openLightbox() {
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
+        function openLightbox(src, alt) {
+            lastFocused = document.activeElement;
+            lightboxImg.src = src;
+            lightboxImg.alt = alt;
             lightbox.classList.add('open');
             document.body.style.overflow = 'hidden';
+            lightboxClose.focus();
         }
 
         function closeLightbox() {
             lightbox.classList.remove('open');
             document.body.style.overflow = '';
+            if (lastFocused) lastFocused.focus();
         }
 
-        img.addEventListener('click', openLightbox);
-        lightbox.querySelector('.proj-lightbox-close').addEventListener('click', closeLightbox);
+        lightboxClose.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+        });
 
-        renderSlide();
+        const imgPath = (proj, i) => `assets/project_images/${proj.folder}/${proj.images[i]}`;
+
+        // Main screenshot as a zoomable button
+        function createShot(proj) {
+            const shot = document.createElement('button');
+            shot.className = 'project-shot';
+            shot.setAttribute('aria-label', `View ${proj.title} screenshot full size`);
+
+            const img = document.createElement('img');
+            img.src = imgPath(proj, 0);
+            img.alt = `${proj.title} screenshot`;
+            img.loading = 'lazy';
+
+            shot.appendChild(img);
+            shot.addEventListener('click', () => openLightbox(img.src, img.alt));
+            return { shot, img };
+        }
+
+        // Stat panel for projects presented without screenshots
+        function createStatsPanel(proj) {
+            const panel = document.createElement('div');
+            panel.className = 'project-stats';
+            proj.stats.forEach(s => {
+                const stat = document.createElement('div');
+                stat.className = 'project-stat';
+
+                const value = document.createElement('span');
+                value.className = 'project-stat-value';
+                value.textContent = s.value;
+
+                const label = document.createElement('span');
+                label.className = 'project-stat-label';
+                label.textContent = s.label;
+
+                stat.appendChild(value);
+                stat.appendChild(label);
+                panel.appendChild(stat);
+            });
+            return panel;
+        }
+
+        function createRow(proj) {
+            const row = document.createElement('div');
+            row.className = 'project-row reveal';
+
+            // Media side: screenshot when available, stat panel otherwise
+            const media = document.createElement('div');
+            media.className = 'project-media';
+            let img = null;
+            if (proj.images && proj.images.length) {
+                const shot = createShot(proj);
+                img = shot.img;
+                media.appendChild(shot.shot);
+            } else if (proj.stats && proj.stats.length) {
+                media.appendChild(createStatsPanel(proj));
+            }
+
+            // Thumbnail strip for multi-image projects
+            if (img && proj.images.length > 1) {
+                const thumbs = document.createElement('div');
+                thumbs.className = 'project-thumbs';
+                proj.images.forEach((_, i) => {
+                    const thumb = document.createElement('button');
+                    thumb.className = 'project-thumb' + (i === 0 ? ' active' : '');
+                    thumb.setAttribute('aria-label', `${proj.title} screenshot ${i + 1}`);
+                    const tImg = document.createElement('img');
+                    tImg.src = imgPath(proj, i);
+                    tImg.alt = '';
+                    tImg.loading = 'lazy';
+                    thumb.appendChild(tImg);
+                    thumb.addEventListener('click', () => {
+                        img.src = imgPath(proj, i);
+                        thumbs.querySelectorAll('.project-thumb').forEach((t, ti) => {
+                            t.classList.toggle('active', ti === i);
+                        });
+                    });
+                    thumbs.appendChild(thumb);
+                });
+                media.appendChild(thumbs);
+            }
+
+            // Text side
+            const info = document.createElement('div');
+            info.className = 'project-info';
+
+            const title = document.createElement('h3');
+            title.className = 'project-title';
+            title.textContent = proj.title;
+
+            const desc = document.createElement('p');
+            desc.className = 'project-desc';
+            desc.textContent = proj.description;
+
+            info.appendChild(title);
+            info.appendChild(desc);
+
+            row.appendChild(media);
+            row.appendChild(info);
+            return row;
+        }
+
+        function createCard(proj) {
+            const card = document.createElement('button');
+            card.className = 'project-card reveal';
+            card.setAttribute('aria-label', `View ${proj.title} screenshot full size`);
+
+            const img = document.createElement('img');
+            img.src = imgPath(proj, 0);
+            img.alt = `${proj.title} screenshot`;
+            img.loading = 'lazy';
+
+            const title = document.createElement('h3');
+            title.className = 'project-card-title';
+            title.textContent = proj.title;
+
+            const desc = document.createElement('p');
+            desc.className = 'project-card-desc';
+            desc.textContent = proj.description;
+
+            card.appendChild(img);
+            card.appendChild(title);
+            card.appendChild(desc);
+            card.addEventListener('click', () => openLightbox(img.src, img.alt));
+            return card;
+        }
+
+        let hasMore = false;
+        projects.forEach(proj => {
+            if (proj.featured !== false) {
+                const row = createRow(proj);
+                rowsContainer.appendChild(row);
+                revealOnce.observe(row);
+            } else {
+                hasMore = true;
+                const card = createCard(proj);
+                gridContainer.appendChild(card);
+                revealOnce.observe(card);
+            }
+        });
+
+        if (hasMore && moreBlock) moreBlock.hidden = false;
     }
 
     // Modular Tech Stack Slider Generation

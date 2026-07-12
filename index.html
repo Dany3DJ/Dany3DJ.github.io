@@ -37,8 +37,8 @@
             <li><a href="#experience">Experience</a></li>
             <li><a href="#use-cases">Use Cases</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
             <li><a href="#tools">Tech Stack</a></li>
+            <li><a href="#contact">Contact</a></li>
             <div class="nav-underline"></div>
         </ul>
         <button class="menu-toggle" aria-label="Open menu">
@@ -56,8 +56,8 @@
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#use-cases">Use Cases</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
                 <li><a href="#tools">Tech Stack</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </div>
@@ -67,7 +67,7 @@
             <div class="container">
                 <div class="hero-content">
                     <h1 class="reveal-text">Designing <span class="accent">Digital</span> Solutions</h1>
-                    <p class="reveal-text-slow">A creative developer designing solutions and pushing boundaries across
+                    <p class="reveal-text-slow">A creative engineer designing solutions and pushing boundaries across
                         hardware and software engineering.</p>
                     <div class="hero-btns reveal">
                         <a href="#use-cases" class="btn btn-secondary">View My Work</a>
@@ -159,24 +159,30 @@
             <div class="container">
                 <div class="section-header reveal">
                     <h2 class="reveal-text">My <span class="accent">Projects</span></h2>
-                    <p>A selection of things I've built.</p>
+                    <p>Real systems I've designed, built, and shipped.</p>
+                </div>
+                <div id="projects-rows" class="projects-rows">
+                    <!-- Featured project rows injected by script.js -->
+                </div>
+                <div id="projects-more" class="projects-more" hidden>
+                    <p class="projects-more-label">More builds</p>
+                    <div id="projects-grid" class="projects-more-grid">
+                        <!-- Compact project cards injected by script.js -->
+                    </div>
                 </div>
             </div>
-            <div class="projects-carousel">
-                <div class="proj-slide-wrap">
-                    <div class="proj-slide" id="proj-slide">
-                        <img class="proj-img" src="" alt="">
-                        <div class="proj-overlay">
-                            <p class="proj-title"></p>
-                            <p class="proj-desc"></p>
-                        </div>
-                        <span class="proj-counter"></span>
-                        <div class="proj-img-dots"></div>
-                    </div>
-                    <button class="proj-arrow proj-prev" aria-label="Previous project">&#8249;</button>
-                    <button class="proj-arrow proj-next" aria-label="Next project">&#8250;</button>
+        </section>
+
+        <section id="tools" class="tools-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="reveal-text">Tech <span class="accent">Stack</span></h2>
+                    <p>The tools and technologies I use to bridge hardware and software.</p>
                 </div>
-                <div class="proj-proj-dots" role="tablist" aria-label="Projects"></div>
+            </div>
+
+            <div class="tools-slider-container" id="tools-slider">
+                <!-- Rows will be injected here by script.js -->
             </div>
         </section>
 
@@ -212,19 +218,6 @@
                         <p>dany3dj</p>
                     </a>
                 </div>
-            </div>
-        </section>
-
-        <section id="tools" class="tools-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="reveal-text">Tech <span class="accent">Stack</span></h2>
-                    <p>The tools and technologies I use to bridge hardware and software.</p>
-                </div>
-            </div>
-
-            <div class="tools-slider-container" id="tools-slider">
-                <!-- Rows will be injected here by script.js -->
             </div>
         </section>
     </main>

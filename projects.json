@@ -1,8 +1,84 @@
 [
   {
+    "title": "Lockr",
+    "description": "SaaS platform for fitness coaches — client check-ins, training plans, progress photos, and payment collection in one mobile-first dashboard. Built end-to-end solo: React + TypeScript frontend, Cloudflare Workers + Postgres backend, JWT auth, local payment rails, and a two-environment Playwright test suite guarding every release.",
+    "folder": "lockr",
+    "featured": true,
+    "images": [
+      "1.png",
+      "2.png"
+    ]
+  },
+  {
+    "title": "Aimina",
+    "description": "Self-retraining AI editorial agent that triages the day's news across MO4 Network's publications — GPT scoring, vector-embedding similarity search for deduplication (Supabase + pgvector), and Telegram delivery. Turned hours of manual multi-feed review into an automated morning pipeline that retrains itself weekly against evolving publication standards.",
+    "folder": "aimina",
+    "featured": true,
+    "images": [],
+    "stats": [
+      { "value": "400+", "label": "articles scored daily" },
+      { "value": "20+", "label": "news sources ingested" },
+      { "value": "56", "label": "node AI pipeline" },
+      { "value": "Weekly", "label": "self-retraining loop" }
+    ]
+  },
+  {
+    "title": "Scrapling",
+    "description": "Distributed scraping engine monitoring vendor pricing and stock across every major e-commerce platform daily — Shopify, WooCommerce, Magento, PrestaShop, and 19 more. Atomic Postgres syncs with fail-safe sweep logic, AI product categorization, and day-over-day change detection. FastAPI, Docker, and n8n orchestration, engineered to survive anti-bot walls and 50k-item catalogs.",
+    "folder": "scrapling",
+    "featured": true,
+    "images": [],
+    "stats": [
+      { "value": "150+", "label": "storefronts scraped daily" },
+      { "value": "23", "label": "platform-specific scrapers" },
+      { "value": "50k+", "label": "items per catalog handled" },
+      { "value": "0", "label": "manual checks required" }
+    ]
+  },
+  {
+    "title": "ReportFlow",
+    "description": "Automated Instagram campaign reporting for a 14-brand media network — pulls performance data from Airtable, captures live post and story embeds with headless Chromium, and renders branded, client-ready PDF reports. Eliminated manual screenshotting and deck-building from the media buying workflow entirely.",
+    "folder": "reportflow",
+    "featured": true,
+    "images": [
+      "1.png",
+      "2.png"
+    ]
+  },
+  {
     "title": "Botit Sidekick",
     "description": "Executive ops dashboard giving management real-time visibility into vendor health, team status, and key metrics — replacing fragmented updates with a single source of truth.",
     "folder": "botit_sidekick",
+    "featured": true,
+    "images": [
+      "1.png",
+      "2.png"
+    ]
+  },
+  {
+    "title": "Trader",
+    "description": "AI-augmented trading signal engine for the Egyptian Exchange and crypto — custom technical analysis across 261 tickers and 18 sectors, Gemini-driven evaluation, and Telegram delivery with one-tap trade logging. Validated by 37 backtest runs and live forward-testing.",
+    "folder": "trader",
+    "featured": false,
+    "images": [
+      "1.png"
+    ]
+  },
+  {
+    "title": "AudioViz",
+    "description": "Real-time audio visualizer bridging software and hardware — FFT analysis drives on-screen effects and physical ESP32 LEDs over a custom binary serial protocol, with beat detection, automatic gain control, and GPU-accelerated video export.",
+    "folder": "audioviz",
+    "featured": false,
+    "images": [
+      "1.png",
+      "2.png"
+    ]
+  },
+  {
+    "title": "Nathalie",
+    "description": "Internal ops platform combining push notifications with an AI assistant — teams query project status and get live updates through a simple chat interface instead of chasing emails.",
+    "folder": "nathalie",
+    "featured": false,
     "images": [
       "1.png",
       "2.png"
@@ -12,23 +88,16 @@
     "title": "Botit Emails",
     "description": "Automated vendor communication pipeline delivering personalized status emails daily based on live system data — eliminating manual follow-ups and keeping every vendor informed without human effort.",
     "folder": "botit_emails",
+    "featured": false,
     "images": [
       "1.png"
-    ]
-  },
-  {
-    "title": "Nathalie",
-    "description": "Internal ops platform combining push notifications with an AI assistant — teams query project status and get live updates through a simple chat interface instead of chasing emails.",
-    "folder": "nathalie",
-    "images": [
-      "1.png",
-      "2.png"
     ]
   },
   {
     "title": "The Spyfall Game",
     "description": "Multiplayer social deduction game with a chaos twist — built for local pass-and-play and real-time online sessions. The kind of game that ends friendships and starts rematches.",
     "folder": "thespyfall_game",
+    "featured": false,
     "images": [
       "1.png",
       "2.png"
